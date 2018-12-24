@@ -84,7 +84,7 @@ public class WebControl {
         return av;
     }
     @RequestMapping(value = "/regist")
-    public ModelAndView regist(@Param("userName")String userName,@Param("password")String password ,@Param("code")String code, HttpSession session){
+    public ModelAndView regist(@Param("userName")String userName,@Param("password1")String password ,@Param("code")String code, HttpSession session){
         TbUserRole userRole= new TbUserRole();
         JSONObject jsonObject= (JSONObject) session.getAttribute("user_info");
         userRole.setUserId(userName);
@@ -95,7 +95,7 @@ public class WebControl {
         if (!code.equals(session.getAttribute("code"))){
             av.addObject("status","验证码错误！");
             av.addObject("userName",userName);
-            av.setViewName("regist");
+            av.setViewName("registAgain");
             return  av;
         }
         if (userService.checkIfExit(userName)){
