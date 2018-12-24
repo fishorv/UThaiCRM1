@@ -60,16 +60,15 @@ public class WebControl {
         String url=("https://api.weixin.qq.com/sns/oauth2/access_token?" +
                 "appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code").replace("APPID",APPID).replace("SECRET",APPSECRET).replace("CODE",code);
         ModelAndView av= new ModelAndView();
+        JSONObject logTest= (JSONObject) httpSession.getAttribute("user_info");
         JSONObject jsonObject;
         JSONObject sessionInfo ;
-        Map<String,String> map = new HashMap<>();
-        if (httpSession.getAttribute("user_info")==null){
+        if (logTest==null||!logTest.containsKey("access_token")){
             jsonObject=wxService.doGetStr(url);
             httpSession.setAttribute("user_info",jsonObject);
-        }if(httpSession.getAttribute("user_info")!=null){
-            sessionInfo = (JSONObject) httpSession.getAttribute("user_info");
-            map= webService.getUserInfo(sessionInfo.getString("access_token"),sessionInfo.getString("openid"));
         }
+        sessionInfo = (JSONObject) httpSession.getAttribute("user_info");
+        Map<String,String> map= webService.getUserInfo(sessionInfo.getString("access_token"),sessionInfo.getString("openid"));
         TbUserRole tbUserRole= userService.login(map);
         if (tbUserRole!= null){
             av.addObject("userRole",tbUserRole.getUserRole());
