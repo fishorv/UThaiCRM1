@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uthai.mapper.TbUserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.uthai.po.TbUserRole" >
+    <id column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="user_role" property="userRole" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="branch_group" property="branchGroup" jdbcType="VARCHAR" />
+    <result column="pass" property="pass" jdbcType="VARCHAR" />
+    <result column="promission" property="promission" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    open_id, user_role, user_id, branch_group, pass, promission
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uthai.po.TbUserRoleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_user_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user_role
+    where open_id = #{openId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+      *
+    from tb_user_role
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_user_role
+    where open_id = #{openId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uthai.po.TbUserRoleExample" >
+    delete from tb_user_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uthai.po.TbUserRole" >
+    insert into tb_user_role (open_id, user_role, user_id, 
+      branch_group, pass, promission
+      )
+    values (#{openId,jdbcType=VARCHAR}, #{userRole,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{branchGroup,jdbcType=VARCHAR}, #{pass,jdbcType=VARCHAR}, #{promission,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.uthai.po.TbUserRole" >
+    insert into tb_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="userRole != null" >
+        user_role,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="branchGroup != null" >
+        branch_group,
+      </if>
+      <if test="pass != null" >
+        pass,
+      </if>
+      <if test="promission != null" >
+        promission,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="branchGroup != null" >
+        #{branchGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="promission != null" >
+        #{promission,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uthai.po.TbUserRoleExample" resultType="java.lang.Integer" >
+    select count(*) from tb_user_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_user_role
+    <set >
+      <if test="record.openId != null" >
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userRole != null" >
+        user_role = #{record.userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchGroup != null" >
+        branch_group = #{record.branchGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pass != null" >
+        pass = #{record.pass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.promission != null" >
+        promission = #{record.promission,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_user_role
+    set open_id = #{record.openId,jdbcType=VARCHAR},
+      user_role = #{record.userRole,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      branch_group = #{record.branchGroup,jdbcType=VARCHAR},
+      pass = #{record.pass,jdbcType=VARCHAR},
+      promission = #{record.promission,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uthai.po.TbUserRole" >
+    update tb_user_role
+    <set >
+      <if test="userRole != null" >
+        user_role = #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="branchGroup != null" >
+        branch_group = #{branchGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        pass = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="promission != null" >
+        promission = #{promission,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where open_id = #{openId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uthai.po.TbUserRole" >
+    update tb_user_role
+    set user_role = #{userRole,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      branch_group = #{branchGroup,jdbcType=VARCHAR},
+      pass = #{pass,jdbcType=VARCHAR},
+      promission = #{promission,jdbcType=VARCHAR}
+    where open_id = #{openId,jdbcType=VARCHAR}
+  </update>
+</mapper>

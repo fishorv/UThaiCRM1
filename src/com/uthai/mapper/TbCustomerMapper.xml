@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uthai.mapper.TbCustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.uthai.po.TbCustomer" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="user_age" property="userAge" jdbcType="VARCHAR" />
+    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+    <result column="relation_id" property="relationId" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="salesman" property="salesman" jdbcType="VARCHAR" />
+    <result column="sales_id" property="salesId" jdbcType="VARCHAR" />
+    <result column="service_flag" property="serviceFlag" jdbcType="VARCHAR" />
+    <result column="customer_class" property="customerClass" jdbcType="VARCHAR" />
+    <result column="branch" property="branch" jdbcType="VARCHAR" />
+    <result column="menses_date" property="mensesDate" jdbcType="VARCHAR" />
+    <result column="invite_name" property="inviteName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="file_id" property="fileId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, create_date, user_name, gender, user_age, user_tel, relation_id, wechat, 
+    address, channel, salesman, sales_id, service_flag, customer_class, branch, menses_date, 
+    invite_name, remark, file_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uthai.po.TbCustomerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_customer
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_customer
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uthai.po.TbCustomerExample" >
+    delete from tb_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uthai.po.TbCustomer" >
+    insert into tb_customer (user_id, create_date, user_name, 
+      gender, user_age, user_tel, 
+      relation_id, wechat, address, 
+      channel, salesman, sales_id, 
+      service_flag, customer_class, branch, 
+      menses_date, invite_name, remark, 
+      file_id)
+    values (#{userId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{userAge,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, 
+      #{relationId,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{channel,jdbcType=VARCHAR}, #{salesman,jdbcType=VARCHAR}, #{salesId,jdbcType=VARCHAR}, 
+      #{serviceFlag,jdbcType=VARCHAR}, #{customerClass,jdbcType=VARCHAR}, #{branch,jdbcType=VARCHAR}, 
+      #{mensesDate,jdbcType=VARCHAR}, #{inviteName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{fileId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uthai.po.TbCustomer" >
+    insert into tb_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="userAge != null" >
+        user_age,
+      </if>
+      <if test="userTel != null" >
+        user_tel,
+      </if>
+      <if test="relationId != null" >
+        relation_id,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="salesman != null" >
+        salesman,
+      </if>
+      <if test="salesId != null" >
+        sales_id,
+      </if>
+      <if test="serviceFlag != null" >
+        service_flag,
+      </if>
+      <if test="customerClass != null" >
+        customer_class,
+      </if>
+      <if test="branch != null" >
+        branch,
+      </if>
+      <if test="mensesDate != null" >
+        menses_date,
+      </if>
+      <if test="inviteName != null" >
+        invite_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="fileId != null" >
+        file_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null" >
+        #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null" >
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null" >
+        #{relationId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="salesman != null" >
+        #{salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="salesId != null" >
+        #{salesId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceFlag != null" >
+        #{serviceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="customerClass != null" >
+        #{customerClass,jdbcType=VARCHAR},
+      </if>
+      <if test="branch != null" >
+        #{branch,jdbcType=VARCHAR},
+      </if>
+      <if test="mensesDate != null" >
+        #{mensesDate,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteName != null" >
+        #{inviteName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uthai.po.TbCustomerExample" resultType="java.lang.Integer" >
+    select count(*) from tb_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_customer
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAge != null" >
+        user_age = #{record.userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userTel != null" >
+        user_tel = #{record.userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relationId != null" >
+        relation_id = #{record.relationId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechat != null" >
+        wechat = #{record.wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel != null" >
+        channel = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesman != null" >
+        salesman = #{record.salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesId != null" >
+        sales_id = #{record.salesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceFlag != null" >
+        service_flag = #{record.serviceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerClass != null" >
+        customer_class = #{record.customerClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branch != null" >
+        branch = #{record.branch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mensesDate != null" >
+        menses_date = #{record.mensesDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inviteName != null" >
+        invite_name = #{record.inviteName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileId != null" >
+        file_id = #{record.fileId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_customer
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      user_age = #{record.userAge,jdbcType=VARCHAR},
+      user_tel = #{record.userTel,jdbcType=VARCHAR},
+      relation_id = #{record.relationId,jdbcType=VARCHAR},
+      wechat = #{record.wechat,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      channel = #{record.channel,jdbcType=VARCHAR},
+      salesman = #{record.salesman,jdbcType=VARCHAR},
+      sales_id = #{record.salesId,jdbcType=VARCHAR},
+      service_flag = #{record.serviceFlag,jdbcType=VARCHAR},
+      customer_class = #{record.customerClass,jdbcType=VARCHAR},
+      branch = #{record.branch,jdbcType=VARCHAR},
+      menses_date = #{record.mensesDate,jdbcType=VARCHAR},
+      invite_name = #{record.inviteName,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      file_id = #{record.fileId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uthai.po.TbCustomer" >
+    update tb_customer
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null" >
+        user_age = #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null" >
+        user_tel = #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null" >
+        relation_id = #{relationId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="salesman != null" >
+        salesman = #{salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="salesId != null" >
+        sales_id = #{salesId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceFlag != null" >
+        service_flag = #{serviceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="customerClass != null" >
+        customer_class = #{customerClass,jdbcType=VARCHAR},
+      </if>
+      <if test="branch != null" >
+        branch = #{branch,jdbcType=VARCHAR},
+      </if>
+      <if test="mensesDate != null" >
+        menses_date = #{mensesDate,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteName != null" >
+        invite_name = #{inviteName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="fileId != null" >
+        file_id = #{fileId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uthai.po.TbCustomer" >
+    update tb_customer
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      user_age = #{userAge,jdbcType=VARCHAR},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      relation_id = #{relationId,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=VARCHAR},
+      salesman = #{salesman,jdbcType=VARCHAR},
+      sales_id = #{salesId,jdbcType=VARCHAR},
+      service_flag = #{serviceFlag,jdbcType=VARCHAR},
+      customer_class = #{customerClass,jdbcType=VARCHAR},
+      branch = #{branch,jdbcType=VARCHAR},
+      menses_date = #{mensesDate,jdbcType=VARCHAR},
+      invite_name = #{inviteName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      file_id = #{fileId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>
